@@ -400,8 +400,8 @@ h3 {
   position: fixed;
   right: 20px;
   z-index: 45;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -410,9 +410,22 @@ h3 {
 
 .whatsapp-float {
   bottom: 84px;
-  background: #25d366;
+  background: linear-gradient(135deg, #2fe06f, #128c4a);
   color: #fff;
-  font-weight: 900;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 18px 36px rgba(18, 140, 74, 0.35);
+}
+
+.whatsapp-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffffff' d='M16.02 3.2C9.1 3.2 3.48 8.66 3.48 15.38c0 2.42.74 4.7 2.02 6.6L3.2 28.8l7.1-2.2a12.86 12.86 0 0 0 5.72 1.34c6.92 0 12.54-5.46 12.54-12.18S22.94 3.2 16.02 3.2Zm0 22.54c-1.78 0-3.5-.44-5.03-1.28l-.36-.2-4.2 1.3 1.36-4.02-.24-.38a10.05 10.05 0 0 1-1.76-5.78c0-5.5 4.6-9.98 10.23-9.98 5.64 0 10.23 4.48 10.23 9.98 0 5.5-4.59 10.36-10.23 10.36Zm5.62-7.56c-.3-.15-1.8-.86-2.08-.96-.28-.1-.48-.15-.68.15-.2.3-.78.96-.96 1.16-.18.2-.36.22-.66.07-.3-.15-1.28-.46-2.44-1.46-.9-.78-1.5-1.74-1.68-2.04-.18-.3-.02-.46.14-.6.14-.14.3-.36.46-.54.16-.18.2-.3.3-.5.1-.2.05-.38-.02-.54-.07-.15-.68-1.6-.94-2.18-.25-.56-.5-.48-.68-.49h-.58c-.2 0-.52.07-.8.38-.28.3-1.06 1.02-1.06 2.48s1.08 2.88 1.24 3.08c.15.2 2.12 3.16 5.14 4.42.72.3 1.28.48 1.72.62.72.22 1.38.19 1.9.12.58-.08 1.8-.72 2.06-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35Z'/%3E%3C/svg%3E");
 }
 
 .back-to-top {

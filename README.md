@@ -6,25 +6,40 @@ A static, responsive company website for Morning Star Enterprises, a manufacture
 
 ```text
 /
-├── index.html
-├── products.html
-├── product.html
-├── gallery.html
-├── about.html
-├── contact.html
-├── css/
-│   ├── style.css
-│   ├── products.css
-│   └── responsive.css
-├── js/
-│   ├── main.js
-│   ├── products.js
-│   └── product-details.js
-├── data/
-│   └── products.json
-├── images/
-└── README.md
+|-- index.html
+|-- products.html
+|-- product.html
+|-- gallery.html
+|-- about.html
+|-- contact.html
+|-- css/
+|   |-- style.css
+|   |-- products.css
+|   `-- responsive.css
+|-- js/
+|   |-- config.js
+|   |-- main.js
+|   |-- products.js
+|   `-- product-details.js
+|-- data/
+|   `-- products.json
+|-- images/
+`-- README.md
 ```
+
+## Company Configuration
+
+Edit `js/config.js` to update repeated company information in one place:
+
+- Company name
+- Address
+- Phone number
+- WhatsApp number and link
+- Email address
+- Business hours
+- Copyright text
+
+The HTML pages use `data-config-*` attributes, and `js/main.js` fills those values automatically when the page loads.
 
 ## How to Add Products
 
@@ -44,25 +59,12 @@ Product cards and product details are loaded dynamically with `fetch()` from `da
 
 1. Push the project to a GitHub repository.
 2. Open the repository on GitHub.
-3. Go to `Settings` → `Pages`.
+3. Go to `Settings` -> `Pages`.
 4. Select the branch, usually `main`.
 5. Select `/root` as the publishing source.
 6. Save and wait for GitHub Pages to publish the site.
 
 All links are relative, so the site works from a GitHub Pages project URL.
-
-## Customize Company Information
-
-Update company address, phone, WhatsApp number, and email in:
-
-- `index.html`
-- `products.html`
-- `product.html`
-- `gallery.html`
-- `about.html`
-- `contact.html`
-
-Update the WhatsApp floating link by changing the `https://wa.me/...` URL in each page.
 
 ## Replace Images
 
@@ -76,4 +78,4 @@ Use optimized `.jpg`, `.png`, or `.webp` files and keep descriptive alt text for
 
 ## Local Preview
 
-You can open `index.html` directly in a browser. For the most accurate product-data behavior, especially while editing `data/products.json`, preview through a local static server or deploy to GitHub Pages.
+Open the project folder in VS Code and use the Live Server extension, or run a local static server. This is recommended because product data is loaded from `data/products.json`.

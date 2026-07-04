@@ -3,6 +3,31 @@ const navMenu = document.querySelector('.nav-menu');
 const backToTop = document.querySelector('.back-to-top');
 const darkToggle = document.querySelector('.dark-toggle');
 
+function initSiteConfig() {
+  const config = window.SITE_CONFIG || {};
+
+  document.querySelectorAll('[data-config-text]').forEach((element) => {
+    const value = config[element.dataset.configText];
+    if (value) element.textContent = value;
+  });
+
+  document.querySelectorAll('[data-config-html]').forEach((element) => {
+    const value = config[element.dataset.configHtml];
+    if (value) element.innerHTML = value;
+  });
+
+  document.querySelectorAll('[data-config-href]').forEach((element) => {
+    const value = config[element.dataset.configHref];
+    if (value) element.setAttribute('href', value);
+  });
+
+  document.querySelectorAll('[data-config-address]').forEach((element) => {
+    if (Array.isArray(config.addressLines)) {
+      element.innerHTML = config.addressLines.join('<br>');
+    }
+  });
+}
+
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('mse-theme', theme);
@@ -134,6 +159,7 @@ function initContactForm() {
 window.initReveal = initReveal;
 
 document.addEventListener('DOMContentLoaded', () => {
+  initSiteConfig();
   initNavigation();
   initTheme();
   initBackToTop();
