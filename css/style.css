@@ -81,14 +81,12 @@ a {
 [data-theme="dark"] .brand { color: #fff; }
 
 .brand-mark {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius);
-  display: grid;
-  place-items: center;
-  color: var(--primary);
-  background: linear-gradient(135deg, var(--accent), #ffd371);
-  font-weight: 900;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: transparent;
+  box-shadow: 0 8px 18px rgba(27, 54, 93, 0.14);
 }
 
 .brand small {

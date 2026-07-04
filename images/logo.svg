@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Morning Star Enterprises Logo</title>
+  <desc id="desc">Blue circular MSE company logo with white letters.</desc>
+  <defs>
+    <linearGradient id="mseBlue" x1="120" y1="80" x2="392" y2="432" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#103F8F"/>
+      <stop offset="0.52" stop-color="#07306E"/>
+      <stop offset="1" stop-color="#021F51"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="226" fill="url(#mseBlue)"/>
+  <path fill="#fff" d="M101 318V199h122v119h-33v-87h-28v87h-33v-87h-28v87Zm153 0v-32h83v-28h-83v-59h118v32h-84v27h82v60Zm143 0V199h115v32h-82v27h72v31h-72v29Z"/>
+</svg>

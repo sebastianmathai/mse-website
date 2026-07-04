@@ -128,6 +128,25 @@ function initContactForm() {
   const product = params.get('product');
   if (product) form.message.value = `I would like to enquire about ${product}.`;
 
+  const buildWhatsAppEnquiryUrl = () => {
+    const config = window.SITE_CONFIG || {};
+    if (!config.whatsappHref) return '';
+
+    const message = [
+      config.companyName ? `Hello ${config.companyName},` : 'Hello,',
+      '',
+      'I would like to send an enquiry.',
+      '',
+      `Name: ${form.elements.name.value.trim()}`,
+      `Phone: ${form.elements.phone.value.trim()}`,
+      `Email: ${form.elements.email.value.trim()}`,
+      `Message: ${form.elements.message.value.trim()}`
+    ].join('\n');
+
+    const separator = config.whatsappHref.includes('?') ? '&' : '?';
+    return `${config.whatsappHref}${separator}text=${encodeURIComponent(message)}`;
+  };
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const fields = ['name', 'phone', 'email', 'message'];
@@ -150,9 +169,22 @@ function initContactForm() {
     });
 
     const status = form.querySelector('[data-form-status]');
-    status.textContent = valid ? 'Thank you. Your enquiry is ready to send to Morning Star Enterprises.' : 'Please correct the highlighted fields.';
-    status.className = valid ? 'form-status success' : 'form-status';
-    if (valid) form.reset();
+    if (!valid) {
+      status.textContent = 'Please correct the highlighted fields.';
+      status.className = 'form-status';
+      return;
+    }
+
+    const whatsappUrl = buildWhatsAppEnquiryUrl();
+    if (!whatsappUrl) {
+      status.textContent = 'WhatsApp is not configured yet. Please use the phone or email details on this page.';
+      status.className = 'form-status';
+      return;
+    }
+
+    status.textContent = 'Opening WhatsApp with your enquiry message...';
+    status.className = 'form-status success';
+    window.open(whatsappUrl, '_blank', 'noopener');
   });
 }
 
