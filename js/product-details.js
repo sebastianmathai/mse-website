@@ -9,6 +9,53 @@ async function initProductDetails() {
   const product = products.find((item) => item.id === id) || products[0];
   const initialVariant = getSelectedVariant(product, requestedSize);
 
+  const siteOrigin = 'https://msekerala.in';
+  const absoluteSiteUrl = (path) => new URL(path, `${siteOrigin}/`).href;
+
+  function setOpenGraphProperty(property, value) {
+    const meta = document.querySelector(`meta[property="${property}"]`);
+    if (meta && value) meta.setAttribute('content', value);
+  }
+
+  function updateProductSchema(productData, variantData, pageUrl, imageUrl) {
+    const schema = document.querySelector('[data-product-schema]');
+    if (!schema) return;
+
+    const properties = [
+      ['Grade', productValue(productData, variantData, 'grade')],
+      ['Thickness', productValue(productData, variantData, 'thickness')],
+      ['Dimensions', productValue(productData, variantData, 'dimensions')],
+      ['Finish', productValue(productData, variantData, 'finish')],
+      ['HSN/SAC Code', productValue(productData, variantData, 'hsn')],
+      ['Unit', productValue(productData, variantData, 'unit')]
+    ].filter(([, value]) => value);
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: productValue(productData, variantData, 'name'),
+      description: productValue(productData, variantData, 'description'),
+      image: imageUrl,
+      url: pageUrl,
+      category: productData.category,
+      material: productValue(productData, variantData, 'material'),
+      brand: {
+        '@type': 'Brand',
+        name: 'Morning Star Enterprises'
+      },
+      ...(productValue(productData, variantData, 'sku')
+        ? { sku: productValue(productData, variantData, 'sku') }
+        : {}),
+      additionalProperty: properties.map(([name, value]) => ({
+        '@type': 'PropertyValue',
+        name,
+        value
+      }))
+    };
+
+    schema.textContent = JSON.stringify(structuredData);
+  }
+
   function renderDetails(selectedSize) {
     const variant = getSelectedVariant(product, selectedSize);
     const image = productValue(product, variant, 'image');
@@ -19,10 +66,22 @@ async function initProductDetails() {
     const hsn = productValue(product, variant, 'hsn');
     const unit = productValue(product, variant, 'unit');
     const enquiryHref = getEnquiryHref(product, variant);
+    const pageUrl = new URL('/product.html', siteOrigin);
+    pageUrl.searchParams.set('id', product.id);
+    pageUrl.searchParams.set('size', variant.size);
+    const canonicalUrl = pageUrl.href;
+    const imageUrl = absoluteSiteUrl(image);
 
     document.title = `${name} | Morning Star Enterprises`;
     const description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute('content', descriptionText);
+    setOpenGraphProperty('og:title', `${name} | Morning Star Enterprises`);
+    setOpenGraphProperty('og:description', descriptionText);
+    setOpenGraphProperty('og:image', imageUrl);
+    setOpenGraphProperty('og:url', canonicalUrl);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', canonicalUrl);
+    updateProductSchema(product, variant, canonicalUrl, imageUrl);
 
     const thumbs = [image, 'images/manufacturing-floor.png', 'images/showroom-gallery.png'];
     mount.innerHTML = `
