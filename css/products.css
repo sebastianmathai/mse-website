@@ -147,7 +147,7 @@
 .mini-specs div {
   display: grid;
   grid-template-columns: 90px 1fr;
-  gap: 10px;
+  gap: 28px;
 }
 
 .mini-specs dt {
