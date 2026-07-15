@@ -94,6 +94,14 @@
     grid-template-columns: 1fr;
   }
 
+  .detail-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .size-chip {
+    flex: 1 1 auto;
+  }
+
   .spec-table th,
   .spec-table td {
     display: block;
